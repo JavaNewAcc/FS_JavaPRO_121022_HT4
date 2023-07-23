@@ -6,5 +6,8 @@
 </head>
 <body>
 <h1>Server works!</h1>
+<a href="/usersOnline">
+    <button>Users online</button>
+</a>
 </body>
 </html>

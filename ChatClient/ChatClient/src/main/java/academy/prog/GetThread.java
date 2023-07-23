@@ -3,8 +3,6 @@ package academy.prog;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -29,7 +27,7 @@ public class GetThread implements Runnable {
 
                 InputStream is = http.getInputStream();
                 try {
-                    byte[] buf = responseBodyToArray(is);
+                    byte[] buf = RespBodyToArr.responseBodyToArray(is);
                     String strBuf = new String(buf, StandardCharsets.UTF_8);
 
                     JsonMessages list = gson.fromJson(strBuf, JsonMessages.class);
@@ -50,20 +48,5 @@ public class GetThread implements Runnable {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-    }
-
-    private byte[] responseBodyToArray(InputStream is) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        byte[] buf = new byte[10240];
-        int r;
-
-        do {
-            r = is.read(buf);
-            if (r > 0) {
-                bos.write(buf, 0, r);
-            }
-        } while (r != -1);
-
-        return bos.toByteArray();
     }
 }
